@@ -1,8 +1,14 @@
 package cn.binea.pluginframeworkdemo
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.Intent
+import android.net.Uri
+import cn.binea.pluginframeworkdemo.dynamic_proxy_hook.hook.HookHelper
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,5 +32,12 @@ class MainActivity : AppCompatActivity() {
         init {
             System.loadLibrary("native-lib")
         }
+    }
+
+    fun testActivity(view: View) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.data = Uri.parse("http://www.baidu.com")
+        applicationContext.startActivity(intent)
     }
 }
