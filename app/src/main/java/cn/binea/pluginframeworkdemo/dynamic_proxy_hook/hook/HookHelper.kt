@@ -21,7 +21,7 @@ class HookHelper {
             val instrumentation = instrumentationField.get(currentActivityThread) as Instrumentation
 
             //代理instrumentation
-            val proxyInstrumentation = ProxyInstrumentation(instrumentation)
+            val proxyInstrumentation = ProxyInstrumentationKt(instrumentation)
             instrumentationField.set(currentActivityThread, proxyInstrumentation)
         }
     }
