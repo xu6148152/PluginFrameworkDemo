@@ -1,14 +1,11 @@
 package cn.binea.pluginframeworkdemo
 
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
 import android.net.Uri
-import cn.binea.pluginframeworkdemo.binder_hook.BinderHookHelper
-import cn.binea.pluginframeworkdemo.dynamic_proxy_hook.hook.HookHelper
 
 
 class MainActivity : AppCompatActivity() {

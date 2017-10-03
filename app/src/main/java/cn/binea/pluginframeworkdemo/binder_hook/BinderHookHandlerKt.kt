@@ -9,16 +9,17 @@ import java.lang.reflect.Method
 /**
  * Created by binea on 3/10/2017.
  */
-class BinderHookHandlerKt(var base: IBinder, stubClass: Class<Any>) : InvocationHandler {
+class BinderHookHandlerKt(base: IBinder, stubClass: Class<Any>) : InvocationHandler {
     companion object {
         val TAG = BinderHookHandlerKt::class.java.canonicalName
     }
 
+    var obj = Any()
+
     init {
         try {
             val asInterfaceMethod: Method = stubClass.getDeclaredMethod("asInterface", IBinder::class.java)
-            val binder = asInterfaceMethod.invoke(null, base)
-            base = binder as IBinder
+            obj = asInterfaceMethod.invoke(null, base)
         } catch (e: Exception) {
             throw RuntimeException("hooked failed")
         }
@@ -34,6 +35,6 @@ class BinderHookHandlerKt(var base: IBinder, stubClass: Class<Any>) : Invocation
             return true
         }
 
-        return method.invoke(base, args)
+        return method.invoke(obj, args)
     }
 }

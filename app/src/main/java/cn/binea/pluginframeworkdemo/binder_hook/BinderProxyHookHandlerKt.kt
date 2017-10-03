@@ -32,7 +32,7 @@ class BinderProxyHookHandlerKt(val base: IBinder) : InvocationHandler {
     override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
         if ("queryLocalInterface" == method!!.name) {
             Log.d(TAG, "hook queryLocalInterface")
-            val classArray = arrayOf(IBinder::class.java, IInterface::class.java)
+            val classArray = arrayOf(iinterface as Class<Any>)
             return Proxy.newProxyInstance((proxy as Any).javaClass.classLoader, classArray, BinderHookHandlerKt(base, stub as Class<Any>))
         }
 

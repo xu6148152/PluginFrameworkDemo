@@ -8,7 +8,7 @@ import java.lang.reflect.Proxy
  * Created by binea on 3/10/2017.
  */
 @SuppressLint("PrivateApi")
-class BinderHookHelper {
+class BinderHookHelperKt {
     companion object {
 
         @Throws(Exception::class)
@@ -16,8 +16,8 @@ class BinderHookHelper {
             val CLIPBOARD_SERVICE = "clipboard"
             val serviceManager = Class.forName("android.os.ServiceManager")
             val getService = serviceManager.getDeclaredMethod("getService", String::class.java)
-            val rawBinder = getService.invoke(null, CLIPBOARD_SERVICE)
-            val hookedBinder = Proxy.newProxyInstance(serviceManager.classLoader, arrayOf(IBinder::class.java), BinderProxyHookHandlerKt(rawBinder as IBinder))
+            val rawBinder = getService.invoke(null, CLIPBOARD_SERVICE) as IBinder
+            val hookedBinder = Proxy.newProxyInstance(serviceManager.classLoader, arrayOf(IBinder::class.java), BinderProxyHookHandlerKt(rawBinder))
             val cacheField = serviceManager.getDeclaredField("sCache")
             cacheField.isAccessible = true
             val cache = cacheField.get(null) as HashMap<String, IBinder>
