@@ -2,6 +2,7 @@ package cn.binea.pluginframeworkdemo
 
 import android.app.Application
 import android.content.Context
+import cn.binea.pluginframeworkdemo.binder_hook.BinderHookHelper
 import cn.binea.pluginframeworkdemo.dynamic_proxy_hook.hook.HookHelper
 
 /**
@@ -12,6 +13,7 @@ class MyApp : Application() {
         super.attachBaseContext(base)
         try {
             HookHelper.attachContext()
+            BinderHookHelper.hookClipboardService()
         } catch (e: Exception) {
             e.printStackTrace()
         }
