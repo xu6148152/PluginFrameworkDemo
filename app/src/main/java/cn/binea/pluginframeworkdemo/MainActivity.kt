@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 
 
@@ -37,5 +38,9 @@ class MainActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.data = Uri.parse("http://www.baidu.com")
         applicationContext.startActivity(intent)
+    }
+
+    fun testPMS(view: View) {
+        packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
     }
 }
