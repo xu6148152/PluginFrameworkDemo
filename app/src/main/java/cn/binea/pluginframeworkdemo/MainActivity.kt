@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import cn.binea.pluginframeworkdemo.activity_manager.TargetActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,5 +43,10 @@ class MainActivity : AppCompatActivity() {
 
     fun testPMS(view: View) {
         packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    }
+
+    fun startTargetActivity(view: View) {
+        val intent = Intent(this, TargetActivity::class.java)
+        startActivity(intent)
     }
 }
