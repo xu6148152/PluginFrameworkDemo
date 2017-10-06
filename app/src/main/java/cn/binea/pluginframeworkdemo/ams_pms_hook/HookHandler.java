@@ -5,9 +5,9 @@ import android.util.Log;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import cn.binea.pluginframeworkdemo.InvocationhandlerBase;
+import cn.binea.pluginframeworkdemo.InvocationHandlerBase;
 
-public class HookHandler extends InvocationhandlerBase {
+public class HookHandler extends InvocationHandlerBase {
 
     private static final String TAG = "HookHandler";
 

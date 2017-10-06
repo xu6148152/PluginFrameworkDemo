@@ -13,12 +13,12 @@ object AMSHookHelper {
     @Throws(ClassNotFoundException::class, NoSuchMethodException::class,
             InvocationTargetException::class, IllegalAccessException::class,
             NoSuchFieldException::class)
-    fun hookActivityManager(invocationHandlerBase: InvocationhandlerBase) {
+    fun hookActivityManager(invocationHandlerBase: InvocationHandlerBase) {
         AmsPmsHookHelperKt.hookActivityManager(invocationHandlerBase)
     }
 
     @Throws(Exception::class)
-    fun hookActivityThreadHandler() {
+    fun hookActivityThreadHandler(callbackKt: ActivityThreadHandlerCallbackKt) {
         val activityThreadClazz = Class.forName("android.app.ActivityThread")
         val currentActivityField = activityThreadClazz.getDeclaredField("sCurrentActivityThread")
         currentActivityField.isAccessible = true
@@ -30,7 +30,7 @@ object AMSHookHelper {
 
         val mCallbackField = Handler::class.java.getDeclaredField("mCallback")
         mCallbackField.isAccessible = true
-
-        mCallbackField.set(mH, ActivityThreadHandlerCallbackKt(mH))
+        callbackKt.base = mH
+        mCallbackField.set(mH, callbackKt)
     }
 }

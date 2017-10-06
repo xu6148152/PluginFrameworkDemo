@@ -4,18 +4,17 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.util.Log;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import cn.binea.pluginframeworkdemo.AMSHookHelper;
-import cn.binea.pluginframeworkdemo.InvocationhandlerBase;
+import cn.binea.pluginframeworkdemo.InvocationHandlerBase;
 
 
 /**
  * Created by binea on 5/10/2017.
  */
 
-public class ActivityManagerHandler extends InvocationhandlerBase {
+public class ActivityManagerHandler extends InvocationHandlerBase {
 
     private static final String TAG = ActivityManagerHandler.class.getCanonicalName();
 

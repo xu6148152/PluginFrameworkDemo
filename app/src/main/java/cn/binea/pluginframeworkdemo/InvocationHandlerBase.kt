@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationHandler
 /**
  * Created by binea on 6/10/2017.
  */
-abstract class InvocationhandlerBase(base: Any?) : InvocationHandler {
+abstract class InvocationHandlerBase(base: Any?) : InvocationHandler {
     var base = base
 
     get() {

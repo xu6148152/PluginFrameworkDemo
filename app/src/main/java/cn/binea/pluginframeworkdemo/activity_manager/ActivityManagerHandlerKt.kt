@@ -4,14 +4,13 @@ import android.content.ComponentName
 import android.content.Intent
 import android.util.Log
 import cn.binea.pluginframeworkdemo.AMSHookHelper
-import cn.binea.pluginframeworkdemo.InvocationhandlerBase
-import java.lang.reflect.InvocationHandler
+import cn.binea.pluginframeworkdemo.InvocationHandlerBase
 import java.lang.reflect.Method
 
 /**
  * Created by binea on 5/10/2017.
  */
-class ActivityManagerHandlerKt(base: Any?) : InvocationhandlerBase(base) {
+class ActivityManagerHandlerKt(base: Any?) : InvocationHandlerBase(base) {
 
     companion object {
         val TAG = ActivityManagerHandlerKt::class.java.canonicalName

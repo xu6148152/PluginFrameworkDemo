@@ -10,7 +10,12 @@ import java.lang.reflect.Field
 /**
  * Created by binea on 5/10/2017.
  */
-class ActivityThreadHandlerCallbackKt(val base: Handler): Handler.Callback {
+open class ActivityThreadHandlerCallbackKt(base: Handler?): Handler.Callback {
+
+    var base = base
+
+    get() {return field }
+    set(value) {field = value}
 
     override fun handleMessage(message: Message): Boolean {
 
@@ -20,10 +25,10 @@ class ActivityThreadHandlerCallbackKt(val base: Handler): Handler.Callback {
         return false
     }
 
-    private fun handleLaunchActivity(message: Message) {
+    open fun handleLaunchActivity(message: Message) {
         val obj = message.obj
 
-        var intentField: Field? = null
+        var intentField: Field?
         try {
             intentField = obj.javaClass.getDeclaredField("intent")
 

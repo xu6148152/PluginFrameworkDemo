@@ -1,7 +1,6 @@
 package cn.binea.pluginframeworkdemo
 
 import android.content.Context
-import cn.binea.pluginframeworkdemo.ams_pms_hook.HookHandler
 import java.lang.reflect.Proxy
 
 /**
@@ -9,7 +8,7 @@ import java.lang.reflect.Proxy
  */
 class AmsPmsHookHelperKt {
     companion object {
-        fun hookActivityManager(invocationHandler: InvocationhandlerBase) {
+        fun hookActivityManager(invocationHandler: InvocationHandlerBase) {
             try {
                 val activityManagerNativeClass = Class.forName("android.app.ActivityManagerNative")
 
@@ -31,7 +30,7 @@ class AmsPmsHookHelperKt {
             }
         }
 
-        fun hookPackageManager(context: Context) {
+        fun hookPackageManager(context: Context, invocationHandler: InvocationHandlerBase) {
             try {
                 val activityThreadClazz = Class.forName("android.app.ActivityThread")
                 val currentActivityThreadMethod = activityThreadClazz.getDeclaredMethod("currentActivityThread")
@@ -40,9 +39,9 @@ class AmsPmsHookHelperKt {
                 val packageManagerField = activityThreadClazz.getDeclaredField("sPackageManager")
                 packageManagerField.isAccessible = true
                 val packageManager = packageManagerField.get(currentActivityThread)
-
+                invocationHandler.base = packageManager
                 val packageManagerInterface = Class.forName("android.content.pm.IPackageManager")
-                val proxy = Proxy.newProxyInstance(packageManagerInterface.classLoader, arrayOf(packageManagerInterface), HookHandler(packageManager))
+                val proxy = Proxy.newProxyInstance(packageManagerInterface.classLoader, arrayOf(packageManagerInterface), invocationHandler)
                 packageManagerField.set(currentActivityThread, proxy)
 
                 val pm = context.packageManager
