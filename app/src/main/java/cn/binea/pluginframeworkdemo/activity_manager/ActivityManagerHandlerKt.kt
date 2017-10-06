@@ -3,13 +3,15 @@ package cn.binea.pluginframeworkdemo.activity_manager
 import android.content.ComponentName
 import android.content.Intent
 import android.util.Log
+import cn.binea.pluginframeworkdemo.AMSHookHelper
+import cn.binea.pluginframeworkdemo.InvocationhandlerBase
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 
 /**
  * Created by binea on 5/10/2017.
  */
-class ActivityManagerHandlerKt(val base: Any) : InvocationHandler {
+class ActivityManagerHandlerKt(base: Any?) : InvocationhandlerBase(base) {
 
     companion object {
         val TAG = ActivityManagerHandlerKt::class.java.canonicalName

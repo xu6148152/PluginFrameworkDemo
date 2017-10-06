@@ -2,10 +2,10 @@ package cn.binea.pluginframeworkdemo
 
 import android.app.Application
 import android.content.Context
-import cn.binea.pluginframeworkdemo.activity_manager.AMSHookHelper
+import cn.binea.pluginframeworkdemo.activity_manager.ActivityManagerHandler
+import cn.binea.pluginframeworkdemo.activity_manager.ActivityManagerHandlerKt
 import cn.binea.pluginframeworkdemo.binder_hook.BinderHookHelperKt
-import cn.binea.pluginframeworkdemo.dynamic_proxy_hook.hook.HookHelper
-import cn.binea.pluginframeworkdemo.hook_ams_pms.AmsPmsHookHelperKt
+import cn.binea.pluginframeworkdemo.ams_pms_hook.HookHandler
 
 /**
  * Created by binea on 2/10/2017.
@@ -16,10 +16,10 @@ class MyApp : Application() {
         try {
 //            HookHelper.attachContext()
             BinderHookHelperKt.hookClipboardService()
-            AmsPmsHookHelperKt.hookActivityManager()
+            AmsPmsHookHelperKt.hookActivityManager(HookHandler(null))
             AmsPmsHookHelperKt.hookPackageManager(base!!)
 
-            AMSHookHelper.hookActivityManager()
+            AMSHookHelper.hookActivityManager(ActivityManagerHandler(null))
             AMSHookHelper.hookActivityThreadHandler()
         } catch (e: Exception) {
             e.printStackTrace()

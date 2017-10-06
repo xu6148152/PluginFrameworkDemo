@@ -3,6 +3,7 @@ package cn.binea.pluginframeworkdemo.activity_manager
 import android.content.Intent
 import android.os.Handler
 import android.os.Message
+import cn.binea.pluginframeworkdemo.AMSHookHelper
 import java.lang.reflect.Field
 
 

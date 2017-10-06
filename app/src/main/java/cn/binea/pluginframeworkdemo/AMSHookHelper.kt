@@ -1,9 +1,8 @@
-package cn.binea.pluginframeworkdemo.activity_manager
+package cn.binea.pluginframeworkdemo
 
 import android.os.Handler
-import java.lang.reflect.Field
+import cn.binea.pluginframeworkdemo.activity_manager.ActivityThreadHandlerCallbackKt
 import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Proxy
 
 /**
  * Created by binea on 5/10/2017.
@@ -14,8 +13,8 @@ object AMSHookHelper {
     @Throws(ClassNotFoundException::class, NoSuchMethodException::class,
             InvocationTargetException::class, IllegalAccessException::class,
             NoSuchFieldException::class)
-    fun hookActivityManager() {
-
+    fun hookActivityManager(invocationHandlerBase: InvocationhandlerBase) {
+        AmsPmsHookHelperKt.hookActivityManager(invocationHandlerBase)
     }
 
     @Throws(Exception::class)

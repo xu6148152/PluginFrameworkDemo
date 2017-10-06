@@ -7,19 +7,21 @@ import android.util.Log;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import cn.binea.pluginframeworkdemo.AMSHookHelper;
+import cn.binea.pluginframeworkdemo.InvocationhandlerBase;
+
 
 /**
  * Created by binea on 5/10/2017.
  */
 
-public class ActivityManagerHandler implements InvocationHandler {
+public class ActivityManagerHandler extends InvocationhandlerBase {
 
     private static final String TAG = ActivityManagerHandler.class.getCanonicalName();
 
-    private Object base;
-
     public ActivityManagerHandler(Object base) {
-        this.base = base;
+        super(base);
+        this.setBase(base);
     }
 
     @Override
@@ -49,6 +51,6 @@ public class ActivityManagerHandler implements InvocationHandler {
                 Log.d(TAG, "hook success");
             }
         }
-        return method.invoke(base, objects);
+        return method.invoke(this.getBase(), objects);
     }
 }

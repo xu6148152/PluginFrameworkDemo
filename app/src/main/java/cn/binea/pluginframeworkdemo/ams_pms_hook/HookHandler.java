@@ -1,20 +1,18 @@
-package cn.binea.pluginframeworkdemo.hook_ams_pms;
+package cn.binea.pluginframeworkdemo.ams_pms_hook;
 
-import android.content.pm.PackageManager;
 import android.util.Log;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-class HookHandler implements InvocationHandler {
+import cn.binea.pluginframeworkdemo.InvocationhandlerBase;
+
+public class HookHandler extends InvocationhandlerBase {
 
     private static final String TAG = "HookHandler";
 
-    private Object mBase;
-
     public HookHandler(Object base) {
-        mBase = base;
+        super(base);
     }
 
     @Override
@@ -26,6 +24,6 @@ class HookHandler implements InvocationHandler {
         if ("getActivityInfo".equals(method.getName())) {
 
         }
-        return method.invoke(mBase, args);
+        return method.invoke(getBase(), args);
     }
 }

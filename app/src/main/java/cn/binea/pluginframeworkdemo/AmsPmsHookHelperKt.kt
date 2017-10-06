@@ -1,6 +1,7 @@
-package cn.binea.pluginframeworkdemo.hook_ams_pms
+package cn.binea.pluginframeworkdemo
 
 import android.content.Context
+import cn.binea.pluginframeworkdemo.ams_pms_hook.HookHandler
 import java.lang.reflect.Proxy
 
 /**
@@ -8,7 +9,7 @@ import java.lang.reflect.Proxy
  */
 class AmsPmsHookHelperKt {
     companion object {
-        fun hookActivityManager() {
+        fun hookActivityManager(invocationHandler: InvocationhandlerBase) {
             try {
                 val activityManagerNativeClass = Class.forName("android.app.ActivityManagerNative")
 
@@ -22,7 +23,8 @@ class AmsPmsHookHelperKt {
 
                 val rawIActivityManager = instanceField.get(gDefault)
                 val activityManagerInterface = Class.forName("android.app.IActivityManager")
-                val proxy = Proxy.newProxyInstance(Thread.currentThread().contextClassLoader, arrayOf(activityManagerInterface), HookHandler(rawIActivityManager))
+                invocationHandler.base = rawIActivityManager
+                val proxy = Proxy.newProxyInstance(Thread.currentThread().contextClassLoader, arrayOf(activityManagerInterface), invocationHandler)
                 instanceField.set(gDefault, proxy)
             } catch (e: Exception) {
                 e.printStackTrace()
