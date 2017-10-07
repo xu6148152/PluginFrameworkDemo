@@ -1,6 +1,7 @@
 package cn.binea.pluginframeworkdemo
 
 import android.content.Context
+import android.util.Log
 import java.io.*
 
 /**
@@ -17,11 +18,14 @@ object CommonUtils {
             inputStream = am.open(sourceName)
             val extractFile = context.getFileStreamPath(sourceName)
             fos = FileOutputStream(extractFile)
-            val buffer = ByteArray(1024, { 0 })
-            var count = 0
+            val buffer = ByteArray(1024)
+
+            var count = 1
             while (count > 0) {
                 count = inputStream.read(buffer)
-                fos.write(buffer, 0, count)
+                if (count > 0) {
+                    fos.write(buffer, 0, count)
+                }
             }
             fos.flush()
         } catch (e: IOException) {
@@ -57,10 +61,10 @@ object CommonUtils {
     }
 
     private fun enforceDirExists(baseDir: File): File? {
-        if (baseDir.exists()) {
+        if (!baseDir.exists()) {
             val ret = baseDir.mkdir()
             if (!ret) {
-                throw RuntimeException("create dir " + baseDir + " failed")
+                Log.e("createFile", "create dir " + baseDir + " failed")
             }
         }
         return baseDir

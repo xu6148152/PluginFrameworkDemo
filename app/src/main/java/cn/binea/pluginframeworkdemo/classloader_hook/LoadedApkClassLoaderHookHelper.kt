@@ -3,6 +3,7 @@ package cn.binea.pluginframeworkdemo.classloader_hook
 import android.content.pm.ApplicationInfo
 import android.util.ArrayMap
 import cn.binea.pluginframeworkdemo.CommonUtils
+import cn.binea.pluginframeworkdemo.CustomClassLoader
 import java.io.File
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationTargetException
