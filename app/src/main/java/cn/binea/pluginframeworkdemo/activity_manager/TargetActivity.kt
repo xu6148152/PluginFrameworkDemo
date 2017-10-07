@@ -28,7 +28,7 @@ class TargetActivity : FragmentActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart")
+        Log.d(TAG, "onStartCommand")
     }
 
     override fun onResume() {

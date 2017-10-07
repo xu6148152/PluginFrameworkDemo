@@ -1,13 +1,10 @@
 package cn.binea.pluginframeworkdemo
 
-import android.content.BroadcastReceiver
-import android.content.Context
+import android.content.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
@@ -26,16 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         // Example of a call to a native method
         sample_text.text = stringFromJNI()
-
-        CommonUtils.extractAssets(this, "test.jar")
-        val testPlugin = getFileStreamPath("test.jar")
-        try {
-            ReceiverHelperKt.preLoadReceiver(this, testPlugin)
-            Log.i(javaClass.simpleName, "hook success")
-        } catch (e: Exception) {
-            throw RuntimeException("receiver load failed", e)
-        }
-
 
         // 注册插件收到我们发送的广播之后, 回传的广播
         registerReceiver(mReceiver, IntentFilter(ACTION))
@@ -80,5 +67,21 @@ class MainActivity : AppCompatActivity() {
     fun sendBroad2Plugin(view: View) {
         Toast.makeText(applicationContext, "插件插件!收到请回答!!", Toast.LENGTH_SHORT).show()
         sendBroadcast(Intent("com.weishu.upf.demo.app2.Receiver1"))
+    }
+
+    fun startService1(view: View) {
+        startService(Intent().setComponent(ComponentName("com.weishu.upf.demo.app2", "com.weishu.upf.demo.app2.TargetService1")))
+    }
+
+    fun startService2(view: View) {
+        startService(Intent().setComponent(ComponentName("com.weishu.upf.demo.app2", "com.weishu.upf.demo.app2.TargetService2")))
+    }
+
+    fun stopService1(view: View) {
+        stopService(Intent().setComponent(ComponentName("com.weishu.upf.demo.app2", "com.weishu.upf.demo.app2.TargetService1")))
+    }
+
+    fun stopService2(view: View) {
+        stopService(Intent().setComponent(ComponentName("com.weishu.upf.demo.app2", "com.weishu.upf.demo.app2.TargetService2")))
     }
 }

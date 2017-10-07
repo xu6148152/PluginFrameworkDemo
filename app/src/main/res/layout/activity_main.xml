@@ -60,6 +60,7 @@
         tools:ignore="HardcodedText" />
 
     <Button
+        android:id="@+id/btn_03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="sendBroad2Plugin"
@@ -68,5 +69,53 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_02"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startService1"
+        android:text="startService1"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_03"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startService2"
+        android:text="startService2"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_04"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_06"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stopService1"
+        android:text="stopService1"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_05"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_07"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stopService2"
+        android:text="stopService2"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_06"
         tools:ignore="HardcodedText" />
 </android.support.constraint.ConstraintLayout>
