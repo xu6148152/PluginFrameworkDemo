@@ -21,6 +21,12 @@
         <activity android:name=".activity_manager.StubActivity" />
 
         <service android:name=".service_manager.ProxyService" />
+
+        <provider
+            android:name=".contentprovider_manager.StubContentProvider"
+            android:authorities="cn.binea.pluginframeworkdemo.contentprovider_manager.StubContentProvider"
+            android:exported="true"
+            android:process=":p" />
     </application>
 
 </manifest>

@@ -5,12 +5,11 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import cn.binea.pluginframeworkdemo.activity_manager.ActivityManagerHandler
-import cn.binea.pluginframeworkdemo.activity_manager.ActivityManagerHandlerKt
-import cn.binea.pluginframeworkdemo.activity_manager.ActivityThreadHandlerCallbackKt
 import cn.binea.pluginframeworkdemo.binder_hook.BinderHookHelperKt
 import cn.binea.pluginframeworkdemo.ams_pms_hook.HookHandler
 import cn.binea.pluginframeworkdemo.classloader_hook.ActivityInfoHandlerCallbackKt
 import cn.binea.pluginframeworkdemo.classloader_hook.BaseDexClassLoaderHookHelper
+import cn.binea.pluginframeworkdemo.contentprovider_manager.ProviderHelper
 import cn.binea.pluginframeworkdemo.receiver_manager.ReceiverHelperKt
 import cn.binea.pluginframeworkdemo.service_manager.ServiceDispatcher
 
@@ -41,26 +40,28 @@ class MyApp : Application() {
             AMSHookHelper.hookActivityManager(ActivityManagerHandler(null))
             AMSHookHelper.hookActivityThreadHandler(ActivityInfoHandlerCallbackKt(null))
 
-            hookReceiver()
+            hookReceiverComponent()
 
-            hookService()
+            handleServiceComponent()
+
+            handleProviderComponent()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    fun hookReceiver() {
+    private fun hookReceiverComponent() {
         CommonUtils.extractAssets(this, "test.jar")
         val testPlugin = getFileStreamPath("test.jar")
         try {
             ReceiverHelperKt.preLoadReceiver(this, testPlugin)
             Log.d(javaClass.simpleName, "hook success")
         } catch (e: Exception) {
-            throw RuntimeException("receiver load failed", e)
+            throw RuntimeException("hook receiver failed", e)
         }
     }
 
-    fun hookService() {
+    private fun handleServiceComponent() {
         try {
             CommonUtils.extractAssets(sContext!!, "test_service.jar")
             val apkFile = getFileStreamPath("test_service.jar")
@@ -68,8 +69,24 @@ class MyApp : Application() {
 
             BaseDexClassLoaderHookHelper.patchClassLoader(classLoader, apkFile, odexFile)
             ServiceDispatcher.preLoadService(apkFile)
-        }catch (e: Exception) {
-            throw RuntimeException("hook failed")
+        } catch (e: Exception) {
+            throw RuntimeException("hook service failed")
+        }
+    }
+
+    private fun handleProviderComponent() {
+        try {
+            val apkFile = getFileStreamPath("TestContentProvider.java")
+            if (!apkFile.exists()) {
+                CommonUtils.extractAssets(sContext!!, "TestContentProvider.java")
+            }
+
+            val odexFile = getFileStreamPath("test.odex")
+
+            BaseDexClassLoaderHookHelper.patchClassLoader(classLoader, apkFile, odexFile)
+            ProviderHelper.installProviders(sContext!!, getFileStreamPath("TestContentProvider.java"))
+        } catch (e: Exception) {
+            throw RuntimeException("hook provider fail")
         }
     }
 }
